@@ -44,7 +44,7 @@ class FLAGS:
 def load_embeddings(fp, embedding_size):
     embedding = []
     vocab = []
-    with open(fp, 'r') as f:
+    with open(fp, 'r', encoding="utf-8") as f:
         for each_line in f:
             row = each_line.split(' ')
             if len(row) == 2:

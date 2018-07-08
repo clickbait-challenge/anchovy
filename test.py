@@ -26,6 +26,7 @@ def main(argv=None):
         return
     with open(os.path.join(FLAGS.dir, 'word2id.json'), 'r') as fin:
         word2id = json.load(fin)
+    print("read_data")
     ids, post_texts, truth_classes, post_text_lens, truth_means, target_descriptions, target_description_lens, image_features = read_data(word2id=word2id, fps=[argv[1]], y_len=FLAGS.if_annotated, use_target_description=FLAGS.use_target_description, use_image=FLAGS.use_image)
     post_texts = np.array(post_texts)
     truth_classes = np.array(truth_classes)
@@ -47,6 +48,7 @@ def main(argv=None):
     all_prediction = []
     all_distribution = []
     for i in range(1, 6):
+        print("range: "+i)
         tf.reset_default_graph()
         saver = tf.train.import_meta_graph(os.path.join(FLAGS.dir, "runs", FLAGS.timestamp, "checkpoints", FLAGS.model+str(i)+".meta"), clear_devices=True)
         with tf.Session() as sess:
