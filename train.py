@@ -9,7 +9,7 @@ def main(argv=None):
     # word2id contains mapping from word to id {'the': 2, ',': 3, ...}
     # embedding contains embedding stuff
     # writes to word2id.json
-    with open(os.path.join(FLAGS.dir, 'word2id.json'), 'w') as fout:
+    with open(os.path.join(FLAGS.dir, 'word2id.json'), 'w', encoding="utf-8") as fout:
         json.dump(word2id, fp=fout)
     ids, post_texts, truth_classes, post_text_lens, truth_means, target_descriptions, target_description_lens, image_features = read_data(word2id=word2id, fps=[os.path.join(FLAGS.dir, FLAGS.training_file), os.path.join(FLAGS.dir, FLAGS.validation_file)], y_len=FLAGS.y_len, use_target_description=FLAGS.use_target_description, use_image=FLAGS.use_image)
     # init variables with np arrays

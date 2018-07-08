@@ -69,7 +69,7 @@ word2id, embedding = load_embeddings(fp=os.path.join(FLAGS.dir, "glove.6B."+str(
 # embedding contains embedding stuff
 
 # writes to word2id.json
-with open(os.path.join(FLAGS.dir, 'word2id.json'), 'w') as fout:
+with open(os.path.join(FLAGS.dir, 'word2id.json'), 'w', encoding="utf-8") as fout:
         json.dump(word2id, fp=fout)
 
 #utils functions
@@ -167,11 +167,11 @@ def read_data(fps, word2id=None, y_len=1, use_target_description=False, use_imag
     num = 0
     for fp in fps:
         if use_image:
-            with open(os.path.join(fp, "id2imageidx.json"), "r") as fin:
+            with open(os.path.join(fp, "id2imageidx.json"), "r", encoding="utf-8") as fin:
                 id2imageidx = json.load(fin)
             all_image_features = hickle.load(os.path.join(fp, "image_features.hkl"))
         if y_len:
-            with open(os.path.join(fp, 'truth.jsonl'), 'rb') as fin:
+            with open(os.path.join(fp, 'truth.jsonl'), 'rb', encoding="utf-8") as fin:
                 for each_line in fin:
                     each_item = json.loads(each_line.decode('utf-8'))
                     if delete_irregularities:
@@ -197,7 +197,7 @@ def read_data(fps, word2id=None, y_len=1, use_target_description=False, use_imag
                         else:
                             id2truth_class[each_item["id"]] = [0]
                     id2truth_mean[each_item["id"]] = [float(each_item["truthMean"])]
-        with open(os.path.join(fp, 'instances.jsonl'), 'rb') as fin:
+        with open(os.path.join(fp, 'instances.jsonl'), 'rb', encoding="utf-8") as fin:
             for each_line in fin:
                 each_item = json.loads(each_line.decode('utf-8'))
                 if each_item["id"] not in id2truth_class and y_len:

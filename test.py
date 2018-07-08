@@ -24,7 +24,7 @@ def main(argv=None):
     if FLAGS.use_image and not os.path.exists(os.path.join(FLAGS.dir, FLAGS.test_file, "id2imageidx.json")):
         print("Error: no processed image features!")
         return
-    with open(os.path.join(FLAGS.dir, 'word2id.json'), 'r') as fin:
+    with open(os.path.join(FLAGS.dir, 'word2id.json'), 'r', encoding="utf-8") as fin:
         word2id = json.load(fin)
     print("read_data")
     ids, post_texts, truth_classes, post_text_lens, truth_means, target_descriptions, target_description_lens, image_features = read_data(word2id=word2id, fps=[argv[1]], y_len=FLAGS.if_annotated, use_target_description=FLAGS.use_target_description, use_image=FLAGS.use_image)
@@ -88,7 +88,7 @@ def main(argv=None):
         print(acc(distribution2label(truth_classes), distribution2label(avg_distribution)))
     if not os.path.exists(argv[2]):
         os.makedirs(argv[2])
-    with open(os.path.join(argv[2], "predictions.jsonl"), 'w') as output:
+    with open(os.path.join(argv[2], "predictions.jsonl"), 'w', encoding="utf-8") as output:
         for i in range(len(ids)):
             output.write(json.dumps({"id": ids[i], "clickbaitScore": float(avg_prediction[i])})+'\n')
 
