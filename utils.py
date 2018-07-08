@@ -27,7 +27,7 @@ class FLAGS:
     dropout_rate_embedding = 0.2
     state_size = 64
     hidden_size = 0
-    timestamp = "0715"
+    timestamp = "0716"
     y_len = 4
     model = "SAN"
     use_target_description = False
@@ -117,10 +117,13 @@ def process_tweet(text):
 
     # AM edit
     def re_sub_emojis(str):
+        print (str)
         new_str = str
         for c in str:
             if c in emoji.UNICODE_EMOJI:
-                new_str = new_str.replace(c, "<emoji>")
+                # new_str = new_str.replace(c, "<emoji>")
+                new_str = new_str.replace(c, emoji.demojize(c))
+        print(new_str)
         return new_str
 
     # print(text)
@@ -128,11 +131,11 @@ def process_tweet(text):
     text = re_sub(r"https?:\/\/\S+\b|www\.(\w+\.)+\S*", "<url>")
     text = re_sub(r"/"," / ")
     text = re_sub(r"@\w+", "<user>")
-    text = re_sub(r"{}{}[)dD]+|[)dD]+{}{}".format(eyes, nose, nose, eyes), "<smile>")
-    text = re_sub(r"{}{}p+".format(eyes, nose), "<lolface>")
-    text = re_sub(r"{}{}\(+|\)+{}{}".format(eyes, nose, nose, eyes), "<sadface>")
-    text = re_sub(r"{}{}[\/|l*]".format(eyes, nose), "<neutralface>")
-    text = re_sub(r"<3","<heart>")
+    # text = re_sub(r"{}{}[)dD]+|[)dD]+{}{}".format(eyes, nose, nose, eyes), "<smile>")
+    # text = re_sub(r"{}{}p+".format(eyes, nose), "<lolface>")
+    # text = re_sub(r"{}{}\(+|\)+{}{}".format(eyes, nose, nose, eyes), "<sadface>")
+    # text = re_sub(r"{}{}[\/|l*]".format(eyes, nose), "<neutralface>")
+    # text = re_sub(r"<3","<heart>")
     text = re_sub(r"[-+]?[.\d]*[\d]+[:,.\d]*", "<number>")
     # pdb.set_trace()
     text = re_sub(r"#\S+", hashtag)
