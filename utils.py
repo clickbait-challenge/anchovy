@@ -15,7 +15,7 @@ UNK = "<unk>"  # reserve 1 for unknown
 nltk_tokeniser = nltk.tokenize.TweetTokenizer()
 
 class FLAGS:
-    dir = "./data"
+    dir = "./anchovy/data"
     training_file = "clickbait17-validation-170630"
     validation_file = "clickbait17-train-170331"
     epochs = 20
