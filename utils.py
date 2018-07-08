@@ -117,13 +117,13 @@ def process_tweet(text):
 
     # AM edit
     def re_sub_emojis(str):
-        print (str)
+        # print (str)
         new_str = str
         for c in str:
             if c in emoji.UNICODE_EMOJI:
                 # new_str = new_str.replace(c, "<emoji>")
                 new_str = new_str.replace(c, emoji.demojize(c))
-        print(new_str)
+        # print(new_str)
         return new_str
 
     # print(text)
@@ -166,10 +166,6 @@ def read_data(fps, word2id=None, y_len=1, use_target_description=False, use_imag
     image_features = []
     num = 0
     for fp in fps:
-        if use_image:
-            with open(os.path.join(fp, "id2imageidx.json"), "r", encoding="utf-8") as fin:
-                id2imageidx = json.load(fin)
-            all_image_features = hickle.load(os.path.join(fp, "image_features.hkl"))
         if y_len:
             with open(os.path.join(fp, 'truth.jsonl'), 'rb', encoding="utf-8") as fin:
                 for each_line in fin:
@@ -197,7 +193,7 @@ def read_data(fps, word2id=None, y_len=1, use_target_description=False, use_imag
                         else:
                             id2truth_class[each_item["id"]] = [0]
                     id2truth_mean[each_item["id"]] = [float(each_item["truthMean"])]
-        with open(os.path.join(fp, 'instances.jsonl'), 'rb', encoding="utf-8") as fin:
+        with open(os.path.join(fp, 'instances.jsonl'), 'rb') as fin:
             for each_line in fin:
                 each_item = json.loads(each_line.decode('utf-8'))
                 if each_item["id"] not in id2truth_class and y_len:
