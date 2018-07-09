@@ -88,7 +88,7 @@ def main(argv=None):
         print(acc(distribution2label(truth_classes), distribution2label(avg_distribution)))
     if not os.path.exists(argv[2]):
         os.makedirs(argv[2])
-    with open(os.path.join(argv[2], "predictions.jsonl"), 'w', encoding="utf-8") as output:
+    with open(os.path.join(argv[2], "results.jsonl"), 'w', encoding="utf-8") as output:
         for i in range(len(ids)):
             output.write(json.dumps({"id": ids[i], "clickbaitScore": float(avg_prediction[i])})+'\n')
 
